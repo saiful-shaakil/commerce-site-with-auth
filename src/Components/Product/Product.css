@@ -1,10 +1,32 @@
+.product {
+  border: 1px solid rgb(128, 125, 123);
+  width: 300px;
+  height: 500px;
+  position: relative;
+}
 .product img {
   width: 286px;
   height: 286px;
+  margin: 7px;
 }
 .product .name {
   font-family: "Lato";
   font-style: normal;
   font-weight: 400;
   font-size: 21px;
+}
+.product p {
+  margin: 7px;
+}
+.product button {
+  width: 300px;
+  border: none;
+  height: 45px;
+  background-color: #ffe0b3;
+  position: absolute;
+  bottom: 0;
+  font-size: 18px;
+}
+.product button:hover {
+  background-color: #d88f21;
 }
