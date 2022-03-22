@@ -16,19 +16,21 @@ const Shop = () => {
     setCart(newCart);
   };
   return (
-    <div className="shop-container">
-      <div className="product-container">
-        {products.map((product) => (
-          <Product
-            product={product}
-            key={product.id}
-            buttonHandler={handleAddToCart}
-          ></Product>
-        ))}
-      </div>
-      <div className="cart-container">
-        <p>Order summary</p>
-        <p>Total Product: {cart.length}</p>
+    <div className="shop-container-fullBox">
+      <div className="shop-container">
+        <div className="product-container">
+          {products.map((product) => (
+            <Product
+              product={product}
+              key={product.id}
+              buttonHandler={handleAddToCart}
+            ></Product>
+          ))}
+        </div>
+        <div className="cart-container">
+          <p>Order summary</p>
+          <p>Total Product: {cart.length}</p>
+        </div>
       </div>
     </div>
   );
