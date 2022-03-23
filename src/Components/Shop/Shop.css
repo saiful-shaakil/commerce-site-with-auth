@@ -18,4 +18,7 @@
   background-color: #ffe0b3;
   text-align: center;
   height: 500px;
+  position: sticky;
+  top: 0;
+  right: 0;
 }
