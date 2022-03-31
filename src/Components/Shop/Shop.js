@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from "react";
+import useCart from "../../Hooks/useCart";
+import useProducts from "../../Hooks/useProducts";
 import { addToDb, getStoredProducts } from "../../utilities/fakedb";
 import Cart from "../Cart/Cart";
 import Product from "../Product/Product";
 import "./Shop.css";
 
 const Shop = () => {
-  const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState([]);
+  const [products, setProducts] = useProducts([]);
+  const [cart, setCart] = useCart([]);
 
-  useEffect(() => {
-    fetch("products.json")
-      .then((res) => res.json())
-      .then((data) => setProducts(data));
-  }, []);
   const handleAddToCart = (product) => {
     let newCart = [];
     const exists = cart.find(
@@ -31,19 +28,6 @@ const Shop = () => {
     setCart(newCart);
     addToDb(product.id);
   };
-  useEffect(() => {
-    let storedCart = getStoredProducts();
-    let savedCart = [];
-    for (const id in storedCart) {
-      let addedProduct = products.find((product) => product.id === id);
-      if (addedProduct) {
-        let quantity = storedCart[id];
-        addedProduct.quantity = quantity;
-        savedCart.push(addedProduct);
-      }
-    }
-    setCart(savedCart);
-  }, [products]);
   return (
     <div className="shop-container-fullBox">
       <div className="shop-container">
