@@ -1,7 +1,7 @@
 import { prettyDOM } from "@testing-library/react";
 import React from "react";
 
-const Cart = ({ cart }) => {
+const Cart = ({ cart, children }) => {
   let total = 0;
   let shippingCharge = 0;
   let quantity = 0;
@@ -21,6 +21,7 @@ const Cart = ({ cart }) => {
       <p>Total Shipping Charge: ${shippingCharge}</p>
       <p>Tax: ${tax}</p>
       <p>Grand Total: ${grandTotal}</p>
+      <p>{children}</p>
     </div>
   );
 };

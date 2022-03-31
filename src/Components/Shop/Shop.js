@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import useCart from "../../Hooks/useCart";
+import { Link } from "react-router-dom";
 import useProducts from "../../Hooks/useProducts";
 import { addToDb, getStoredProducts } from "../../utilities/fakedb";
 import Cart from "../Cart/Cart";
@@ -8,7 +8,7 @@ import "./Shop.css";
 
 const Shop = () => {
   const [products, setProducts] = useProducts([]);
-  const [cart, setCart] = useCart([]);
+  const [cart, setCart] = useState([]);
 
   const handleAddToCart = (product) => {
     let newCart = [];
@@ -28,6 +28,19 @@ const Shop = () => {
     setCart(newCart);
     addToDb(product.id);
   };
+  useEffect(() => {
+    let storedCart = getStoredProducts();
+    let savedCart = [];
+    for (const id in storedCart) {
+      let addedProduct = products.find((product) => product.id === id);
+      if (addedProduct) {
+        let quantity = storedCart[id];
+        addedProduct.quantity = quantity;
+        savedCart.push(addedProduct);
+      }
+    }
+    setCart(savedCart);
+  }, [products]);
   return (
     <div className="shop-container-fullBox">
       <div className="shop-container">
@@ -41,7 +54,11 @@ const Shop = () => {
           ))}
         </div>
         <div className="cart-container">
-          <Cart cart={cart}></Cart>
+          <Cart cart={cart}>
+            <button>
+              <Link to="/order">Review Products</Link>
+            </button>
+          </Cart>
         </div>
       </div>
     </div>
