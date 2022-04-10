@@ -26,7 +26,9 @@ const SignUp = () => {
     }
 
     createUserWithEmailAndPassword(email, password);
-    navigate("/");
+    if (user) {
+      navigate("/");
+    }
   };
   const handleEmail = (event) => {
     setEmail(event.target.value);
@@ -57,6 +59,7 @@ const SignUp = () => {
               />
             </div>
             <p style={{ color: "red" }}>{error}</p>
+            <p style={{ color: "red" }}>{hookError}</p>
             <div className="input-group">
               <label htmlFor="confirm-password">Confirm Password</label>
               <input
