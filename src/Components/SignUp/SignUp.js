@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import auth from "../../firebase.init";
+
 import "../Login/Login.css";
 
 const SignUp = () => {
@@ -7,9 +10,23 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
   const [error, SetError] = useState("");
+  const [createUserWithEmailAndPassword, user, hookError] =
+    useCreateUserWithEmailAndPassword(auth);
+  const navigate = useNavigate();
 
-  const handleSubmit = () => {
-    console.log("sign");
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (password < 6) {
+      SetError("Password must be at least 6 characters.");
+      return;
+    }
+    if (password !== confirmPass) {
+      SetError("Password didn't match.");
+      return;
+    }
+
+    createUserWithEmailAndPassword(email, password);
+    navigate("/");
   };
   const handleEmail = (event) => {
     setEmail(event.target.value);
@@ -39,6 +56,7 @@ const SignUp = () => {
                 required
               />
             </div>
+            <p style={{ color: "red" }}>{error}</p>
             <div className="input-group">
               <label htmlFor="confirm-password">Confirm Password</label>
               <input
